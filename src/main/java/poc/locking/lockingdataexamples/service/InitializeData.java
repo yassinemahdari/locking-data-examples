@@ -8,8 +8,6 @@ import poc.locking.lockingdataexamples.entity.ExampleGeneratedValue;
 import poc.locking.lockingdataexamples.repository.ExampleGeneratedValueRepository;
 
 import java.util.UUID;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 @ConditionalOnProperty(prefix = "lock-examples", value = "execution-mode", havingValue = "init-data")
 @Slf4j
@@ -26,7 +24,7 @@ public class InitializeData implements CommandLineRunner {
         for (int i = 0; i < 1000; i++) {
             ExampleGeneratedValue exampleGeneratedValue = new ExampleGeneratedValue();
             exampleGeneratedValue.setId(UUID.randomUUID().toString());
-            exampleGeneratedValue.setGeneratedValue(String.valueOf(i + 1));
+            exampleGeneratedValue.setGeneratedValue((long) (i + 1));
             exampleGeneratedValue.setUsed("N");
             exampleGeneratedValueRepository.save(exampleGeneratedValue);
         }
